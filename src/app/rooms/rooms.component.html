@@ -1,0 +1,50 @@
+<!-- Interpolation -->
+<!-- <h1>Welcome to {{ hotelName }}</h1> -->
+<app-header></app-header>
+<!-- <app-header></app-header>
+<app-header></app-header> -->
+<!-- {{rooms$ | async | json}} -->
+
+<div [hidden]="hideRooms">
+  Number of Rooms:
+  <!-- Property Binding -->
+  <div
+    [ngStyle]="{ color: rooms.availableRooms > 0 ? 'green' : 'red' }"
+    [innerText]="numberOfRooms"
+  ></div>
+</div>
+
+<!-- Nullish coalescing for incase there is no data in variable/object/array -->
+<!-- {{ rooms?.availableRooms ?? "No rooms" }} -->
+
+<!-- Below is a json file generally used for debugging purposes. -->
+<!-- {{ roomList | json }} -->
+
+<div *ngIf="selectedRoom">
+  {{ selectedRoom | json }}
+</div>
+
+<div>
+  <button (click)="addRoom()">Add Room</button>
+</div>
+
+<h1>
+  <!-- {{getError$ | async}} -->
+  Number of rooms: {{ roomsCount$ | async }}
+</h1>
+<!-- this async pipe used like with "as" keyword following "name" will only sibscribe once -->
+<div *ngIf="rooms$ | async as rooms"> 
+  <app-rooms-list
+    [rooms]="rooms"
+    [title]="title"
+    (selectedRoom)="selectRoom($event)"
+  ></app-rooms-list>
+</div>
+
+<!-- Event Binding -->
+<button (click)="toggle()">Toggle</button>
+
+<button (click)="editRoom()">Edit Room</button>
+<button (click)="deleteRoom()">Delete Room</button>
+
+<h1>{{ totalBytes }} Loaded</h1>
